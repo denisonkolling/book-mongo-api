@@ -8,39 +8,45 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+//@RequestMapping("/api")
 public class BookController {
 
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/books")
-    public ResponseEntity<List<Book>> getAll() {
-        return ResponseEntity.ok().body(bookService.getAll());
-    }
+//    @GetMapping("/books")
+@GetMapping("/")
+public ResponseEntity<List<Book>> getAll() {
+    return ResponseEntity.ok().body(bookService.getAll());
+}
 
     @RequestMapping(path = "/books/{criteria}/{search}", method = RequestMethod.GET)
     public ResponseEntity<List<Book>> getByCriteria(@PathVariable String criteria, @PathVariable String search) {
         return ResponseEntity.ok().body(bookService.getByCriteria(criteria, search));
     }
 
-    @GetMapping("/books/{id}")
-    public ResponseEntity<Book> getById(@PathVariable String id) {
-        return ResponseEntity.ok().body(bookService.getById(id));
-    }
+//    @GetMapping("/books/{id}")
+@GetMapping("/{id}")
+public ResponseEntity<Book> getById(@PathVariable String id) {
+    return ResponseEntity.ok().body(bookService.getById(id));
+}
 
-    @PostMapping("/books")
-    public ResponseEntity<Book> create(@RequestBody Book book) {
-        return ResponseEntity.ok().body(bookService.create(book));
-    }
+//    @PostMapping("/books")
+@PostMapping("/saveBook")
+public ResponseEntity<Book> create(@RequestBody Book book) {
+    return ResponseEntity.ok().body(bookService.create(book));
+}
 
-    @PutMapping("/books")
+//    @PutMapping("/books")
+@PostMapping("/editBook/{id}")
     public ResponseEntity<Boolean> update(@RequestBody Book book) {
         return ResponseEntity.ok().body(bookService.update(book));
     }
 
-    @DeleteMapping("/books/{id}")
+//    @DeleteMapping("/books/{id}")
+    @DeleteMapping("/deleteBook/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable String id) {
         return ResponseEntity.ok().body(bookService.delete(id));
     }

@@ -28,4 +28,6 @@ public class Book {
     @JsonProperty("year")
     public Integer year;
 
+    @JsonProperty("image")
+    public String image;
 }
